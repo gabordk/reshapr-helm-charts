@@ -18,8 +18,8 @@ This chart installs the **reshapr-proxy** component, which serves as the data pl
 ### Basic Installation
 
 ```bash
-helm install reshapr-proxy ./charts/gateway \
-  --namespace reshapr-proxys \
+helm install reshapr-proxy ./proxy \
+  --namespace reshapr-proxies \
   --create-namespace \
   --set gateway.controlPlane.token=<your-control-plane-token> \
   --set gateway.fqdns=<your-gateway-fqdns>
@@ -28,8 +28,8 @@ helm install reshapr-proxy ./charts/gateway \
 ### Development Installation
 
 ```bash
-helm install reshapr-proxy ./charts/gateway \
-  --namespace reshapr-proxys \
+helm install reshapr-proxy ./proxy \
+  --namespace reshapr-proxies \
   --create-namespace \
   -f values-dev.yaml
 ```
@@ -40,11 +40,11 @@ helm install reshapr-proxy ./charts/gateway \
 # Create the token secret first
 kubectl create secret generic reshapr-proxy-token \
   --from-literal=token='your-control-plane-token' \
-  --namespace reshapr-proxys
+  --namespace reshapr-proxies
 
 # Install the chart
-helm install reshapr-proxy ./charts/gateway \
-  --namespace reshapr-proxys \
+helm install reshapr-proxy ./proxy \
+  --namespace reshapr-proxies \
   --create-namespace \
   -f values-production.yaml \
   --set gateway.fqdns=mcp.reshapr.example.com \
@@ -241,14 +241,14 @@ nodeSelector:
 
 ```bash
 helm upgrade reshapr-proxy ./charts/gateway \
-  --namespace reshapr-proxys \
+  --namespace reshapr-proxies \
   --reuse-values
 ```
 
 ## Uninstalling
 
 ```bash
-helm uninstall reshapr-proxy --namespace reshapr-proxys
+helm uninstall reshapr-proxy --namespace reshapr-proxies
 ```
 
 ## Security Considerations
@@ -265,32 +265,32 @@ helm uninstall reshapr-proxy --namespace reshapr-proxys
 ### Check pod status
 
 ```bash
-kubectl get pods -n reshapr-proxys -l app.kubernetes.io/instance=reshapr-proxy
+kubectl get pods -n reshapr-proxies -l app.kubernetes.io/instance=reshapr-proxy
 ```
 
 ### View logs
 
 ```bash
-kubectl logs -n reshapr-proxys -l app.kubernetes.io/instance=reshapr-proxy -f
+kubectl logs -n reshapr-proxies -l app.kubernetes.io/instance=reshapr-proxy -f
 ```
 
 ### Check gateway registration with control plane
 
 ```bash
 # Get gateway pod
-GATEWAY_POD=$(kubectl get pod -n reshapr-proxys -l app.kubernetes.io/instance=reshapr-proxy -o jsonpath='{.items[0].metadata.name}')
+GATEWAY_POD=$(kubectl get pod -n reshapr-proxies -l app.kubernetes.io/instance=reshapr-proxy -o jsonpath='{.items[0].metadata.name}')
 
 # Check environment variables
-kubectl exec -n reshapr-proxys $GATEWAY_POD -- env | grep RESHAPR
+kubectl exec -n reshapr-proxies $GATEWAY_POD -- env | grep RESHAPR
 
 # Check connectivity to control plane
-kubectl exec -n reshapr-proxys $GATEWAY_POD -- curl -v http://reshapr-control-plane-ctrl:5555/q/health
+kubectl exec -n reshapr-proxies $GATEWAY_POD -- curl -v http://reshapr-control-plane-ctrl:5555/q/health
 ```
 
 ### Verify unique gateway IDs
 
 ```bash
-kubectl get pods -n reshapr-proxys -o jsonpath='{range .items[*]}{.metadata.name}{"\n"}{end}'
+kubectl get pods -n reshapr-proxies -o jsonpath='{range .items[*]}{.metadata.name}{"\n"}{end}'
 ```
 
 Each pod will generate a unique gateway ID based on its name.
@@ -312,7 +312,7 @@ Each pod will generate a unique gateway ID based on its name.
       ┌────────┴────────┬─────────┐
       ▼                 ▼         ▼
 ┌─────────┐       ┌─────────┐   ...
-│ Gateway │       │ Gateway │
+│  Proxy  │       │  Proxy  │
 │  Pod 1  │       │  Pod 2  │
 │ ID: gw-1│       │ ID: gw-2│
 └────┬────┘       └────┬────┘
