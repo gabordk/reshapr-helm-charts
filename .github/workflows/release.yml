@@ -36,8 +36,7 @@ jobs:
 
       - name: Login to Quay OCI registry
         run: |
-          helm registry login quay.io -u ${{ secrets.QUAY_USERNAME }} -p ${{ secrets.QUAY_PASSWORD }}
-          cosign login quay.io -u ${{ secrets.QUAY_USERNAME }} -p ${{ secrets.QUAY_PASSWORD }}
+          echo ${{ secrets.QUAY_PASSWORD }} | helm registry login quay.io -u ${{ secrets.QUAY_USERNAME }} --password-stdin
 
       - name: Package control-plane chart
         run: |
@@ -48,13 +47,12 @@ jobs:
 
       - name: Package proxy chart
         run: |
-          helm dependency build ./proxy
           helm package ./proxy --version ${{ steps.get_version.outputs.version }} --destination ./packaged
 
       - name: Push control-plane chart
         id: push_control_plane
         run: |
-          OUTPUT=$(helm push ./packaged/control-plane-${{ steps.get_version.outputs.version }}.tgz oci://quay.io/reshapr/reshapr-helm-charts 2>&1)
+          OUTPUT=$(helm push ./packaged/control-plane-${{ steps.get_version.outputs.version }}.tgz oci://quay.io/reshapr/reshapr-helm-charts --debug 2>&1)
           echo "$OUTPUT"
           DIGEST=$(echo "$OUTPUT" | grep -oP 'Digest: \K\S+')
           echo "digest=$DIGEST" >> $GITHUB_OUTPUT
