@@ -52,6 +52,7 @@ jobs:
       - name: Push control-plane chart
         id: push_control_plane
         run: |
+          helm push ./packaged/control-plane-${{ steps.get_version.outputs.version }}.tgz oci://quay.io/reshapr/reshapr-helm-charts --debug
           OUTPUT=$(helm push ./packaged/control-plane-${{ steps.get_version.outputs.version }}.tgz oci://quay.io/reshapr/reshapr-helm-charts 2>&1)
           echo "$OUTPUT"
           DIGEST=$(echo "$OUTPUT" | grep -oP 'Digest: \K\S+')
