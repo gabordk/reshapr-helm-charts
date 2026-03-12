@@ -1,0 +1,24 @@
+project:
+  name: reshapr-helm-charts
+  description: Reshapr Helm Charts
+  copyright: The Reshapr Authors
+
+signing:
+  active: ALWAYS
+  armored: true
+
+release:
+  github:
+    overwrite: true
+    releaseName: '{{tagName}}'
+    tagName: '{{projectVersion}}'
+    changelog:
+      formatted: ALWAYS
+      preset: conventional-commits
+      contributors:
+        format: '- {{contributorName}}{{#contributorUsernameAsLink}} ({{.}}){{/contributorUsernameAsLink}}'
+
+files:
+  active: ALWAYS
+  artifacts:
+    - path: packaged/*.tgz
