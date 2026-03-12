@@ -37,6 +37,7 @@ jobs:
       - name: Login to Quay OCI registry
         run: |
           echo ${{ secrets.QUAY_PASSWORD }} | helm registry login quay.io -u ${{ secrets.QUAY_USERNAME }} --password-stdin
+          echo ${{ secrets.QUAY_PASSWORD }} | cosign login quay.io -u ${{ secrets.QUAY_USERNAME }} --password-stdin
 
       - name: Package control-plane chart
         run: |
@@ -72,7 +73,7 @@ jobs:
 
       - name: Sign proxy chart
         run: |
-          cosign sign --new-bundle-format=false --yes \
+          cosign sign --new-bundle-format=false --use-signing-config=false --yes \
             quay.io/reshapr/reshapr-helm-charts/reshapr-proxy@${{ steps.push_proxy.outputs.digest }}
 
       - name: Create GitHub Release with JReleaser
