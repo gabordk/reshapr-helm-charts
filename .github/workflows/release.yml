@@ -41,10 +41,12 @@ jobs:
 
       - name: Package control-plane chart
         run: |
+          helm dependency build ./control-plane
           helm package ./control-plane --version ${{ steps.get_version.outputs.version }} --destination ./packaged
 
       - name: Package proxy chart
         run: |
+          helm dependency build ./proxy
           helm package ./proxy --version ${{ steps.get_version.outputs.version }} --destination ./packaged
 
       - name: Push control-plane chart
