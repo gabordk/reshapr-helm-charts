@@ -41,6 +41,8 @@ jobs:
 
       - name: Package control-plane chart
         run: |
+          helm repo add bitnami https://charts.bitnami.com/bitnami
+          helm repo update
           helm dependency build ./control-plane
           helm package ./control-plane --version ${{ steps.get_version.outputs.version }} --destination ./packaged
 
