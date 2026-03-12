@@ -59,7 +59,7 @@ jobs:
 
       - name: Sign control-plane chart
         run: |
-          cosign sign --new-bundle-format=false --yes \
+          cosign sign --new-bundle-format=false --use-signing-config=false --yes \
             quay.io/reshapr/reshapr-helm-charts/reshapr-control-plane@${{ steps.push_control_plane.outputs.digest }}
 
       - name: Push proxy chart
