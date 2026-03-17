@@ -62,6 +62,26 @@ spec:
               value: {{ include "reshapr-ctrl.fullname" . }}-hz
             - name: HZ_CLUSTERNAME
               value: {{ include "reshapr-ctrl.fullname" . }}-cluster
+            - name: RESHAPR_ADMIN_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "reshapr-ctrl-plane.adminSecretName" . }}
+                  key: {{ .Values.admin.nameKey }}
+            - name: RESHAPR_ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "reshapr-ctrl-plane.adminSecretName" . }}
+                  key: {{ .Values.admin.passwordKey }}
+            - name: RESHAPR_ADMIN_EMAIL
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "reshapr-ctrl-plane.adminSecretName" . }}
+                  key: {{ .Values.admin.emailKey }}
+            - name: RESHAPR_DEFAULT_GATEWAY_TOKENS
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "reshapr-ctrl-plane.adminSecretName" . }}
+                  key: {{ .Values.admin.defaultGatewayTokensKey }}
             - name: RESHAPR_CTRL_API_KEY
               valueFrom:
                 secretKeyRef:

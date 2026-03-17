@@ -164,6 +164,30 @@ externalDatabase:
   passwordKey: "password"
 
 # =============================================================================
+# Admin account configuration
+# =============================================================================
+# -- Admin account configuration and default gateway tokens initialization
+admin:
+  # -- Admin name value (used when existingSecret is not set)
+  nameValue: ""
+  # -- Admin password value (used when existingSecret is not set)
+  passwordValue: ""
+  # -- Admin email value (used when existingSecret is not set)
+  emailValue: ""
+  # -- Default gateway tokens value (comma-separated list, used when existingSecret is not set)
+  defaultGatewayTokensValue: ""
+  # -- Use existing secret for Admin account
+  existingSecret: ""
+  # -- Key in the existing secret for Admin name
+  nameKey: "name"
+  # -- Key in the existing secret for Admin password
+  passwordKey: "password"
+  # -- Key in the existing secret for Admin email
+  emailKey: "email"
+  # -- Key in the existing secret for Default Gateway Tokens (comma-separated list)
+  defaultGatewayTokensKey: "default-gateway-tokens"
+
+# =============================================================================
 # Communication between components
 # =============================================================================
 # -- API key for communication between authz and ctrl components

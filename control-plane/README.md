@@ -124,6 +124,20 @@ The following table lists the configurable parameters of the Reshapr Control Pla
 | `externalDatabase.password`       | Database password                        | `""`     |
 | `externalDatabase.existingSecret` | Existing secret for database credentials | `""`     |
 
+### Admin Credentials Parameters
+
+| Parameter                         | Description                                 | Default   |
+|-----------------------------------|---------------------------------------------|-----------|
+| `admin.nameValue`                 | Admin account username                      | `""`      |
+| `admin.passwordValue`             | Admin account password                      | `""`      |
+| `admin.emamilValue`               | Admin account email                         | `""`      |
+| `admin.defaultGatewayTokensValue` | CSV list of tokens for reshapr org gateways | `""`      |
+| `admin.existingSecret`            | Existing secret for Admin credentials       | `""`      |
+| `admin.nameKey`                   | Key in the secret for Admin username        | `""`      |
+| `admin.passwordKey`               | Key in the secret for Admin password        | `""`      |
+| `admin.emailKey`                  | Key in the secret for Admin email           | `""`      |
+| `admin.defaultGatewayTokensKey`   | Key in the secret for defaultGatewayTokens  | `""`      |
+
 ### API Key Parameters
 
 | Parameter               | Description                   | Default   |

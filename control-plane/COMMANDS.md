@@ -10,7 +10,11 @@ helm install reshapr-control-plane ./control-plane \
   --set postgresql.enabled=true \
   --set postgresql.auth.password=admin \
   --set apiKey.value=dev-api-key-change-me-in-production \
-  --set encryptionKey.value=dev-encryption-key-change-me-in-production
+  --set encryptionKey.value=dev-encryption-key-change-me-in-production \
+  --set admin.nameValue=admin \
+  --set admin.passwordValue=password \
+  --set admin.emailValue=reshapr@example.com \
+  --set admin.defaultGatewayTokensValue=my-super-secret-token-xyz
 ```
 
 ```bash

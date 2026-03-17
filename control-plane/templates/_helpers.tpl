@@ -180,6 +180,23 @@ Get the database password key in secret
 
 {{/*
 =============================================================================
+Admin account helpers
+=============================================================================
+*/}}
+
+{{/*
+Get the Admin account secret name
+*/}}
+{{- define "reshapr-ctrl-plane.adminSecretName" -}}
+{{- if .Values.admin.existingSecret }}
+{{- .Values.admin.existingSecret }}
+{{- else }}
+{{- printf "%s-admin-credentials" (include "reshapr-ctrl-plane.fullname" .) }}
+{{- end }}
+{{- end }}
+
+{{/*
+=============================================================================
 Communication helpers
 =============================================================================
 */}}

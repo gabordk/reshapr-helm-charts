@@ -38,6 +38,13 @@ postgresql:
       enabled: true
       size: 2Gi
 
+# Admin account configuration for development
+admin:
+  nameValue: "admin"
+  passwordValue: "password"
+  emailValue: "reshapr@example.com"
+  defaultGatewayTokensValue: "my-super-secret-token-xyz"
+
 # API key for development
 apiKey:
   value: "dev-api-key-change-me-in-production"

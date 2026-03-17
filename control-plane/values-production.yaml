@@ -76,6 +76,14 @@ externalDatabase:
   existingSecret: "reshapr-db-credentials"
   passwordKey: "password"
 
+# Use existing secret for Account configuration
+admin:
+  existingSecret: "reshapr-admin-credentials"
+  nameKey: "name"
+  passwordKey: "password"
+  emailKey: "email"
+  defaultGatewayTokensKey: "default-gateway-tokens"
+
 # Use existing secret for API key
 apiKey:
   value: ""  # Leave empty when using existingSecret
